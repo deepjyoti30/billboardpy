@@ -14,7 +14,7 @@ git clone https://github.com/deepjyoti30/billboardpy
 
 #### For any chart the ```Billboard``` class is used
 
-#### To fetch the (https://www.billboard.com/charts/youtube)youtube chart.
+#### To fetch the [youtube](https://www.billboard.com/charts/youtube) chart.
 
 ```python
 >>> import billboard
