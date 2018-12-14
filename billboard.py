@@ -18,7 +18,7 @@ class song():
     def __init__(self):
         self.title = ""
         self.artist = ""
-        self.lyrics = ""
+        self.rank = 0
 
 
 class Billboard():
@@ -34,12 +34,19 @@ class Billboard():
         self.get_name_of_chart()
         self.get_number_one()
         self.get_remaining_list()
+        self.replace_symbols()
 
     def get_soup(self):
         """Return the soup for the response."""
         response = get(self.URL)
         soup = BeautifulSoup(response.text, 'html.parser')
         return soup
+
+    def replace_symbols(self):
+        """Replace symbols like &amp with &"""
+        for i in self.chart:
+            i.title = re.sub(r'&amp', '&', i.title)
+            i.artist = re.sub(r'&amp', '&', i.artist)
 
     def get_name_of_chart(self):
         """Get the name of the chart from the webpage."""
