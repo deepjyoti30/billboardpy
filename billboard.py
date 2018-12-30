@@ -31,24 +31,24 @@ class Billboard():
         self.soup = self.get_soup()
         self.chart = []
         self.chart_name = ""
-        self.get_name_of_chart()
-        self.get_number_one()
-        self.get_remaining_list()
-        self.replace_symbols()
+        self._get_name_of_chart()
+        self._get_number_one()
+        self._get_remaining_list()
+        self._replace_symbols()
 
-    def get_soup(self):
+    def _get_soup(self):
         """Return the soup for the response."""
         response = get(self.URL)
         soup = BeautifulSoup(response.text, 'html.parser')
         return soup
 
-    def replace_symbols(self):
+    def _replace_symbols(self):
         """Replace symbols like &amp with &"""
         for i in self.chart:
             i.title = re.sub(r'&amp', '&', i.title)
             i.artist = re.sub(r'&amp', '&', i.artist)
 
-    def get_name_of_chart(self):
+    def _get_name_of_chart(self):
         """Get the name of the chart from the webpage."""
         name = self.soup.findAll('h1',
                                 attrs={'class': 'chart-detail-header__chart-name'})
@@ -65,7 +65,7 @@ class Billboard():
                         )
         self.chart_name = name
 
-    def get_number_one(self):
+    def _get_number_one(self):
         """The number one of the chart needs to be extracted seperately."""
         number_one = song()
         soup = self.soup
@@ -98,7 +98,7 @@ class Billboard():
 
         self.chart.append(number_one)
 
-    def get_remaining_list(self):
+    def _get_remaining_list(self):
         soup = self.soup.findAll('div', attrs={'class': 'chart-list-item'})
         for i in soup:
             songObj = song()
